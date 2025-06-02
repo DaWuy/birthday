@@ -234,18 +234,18 @@
 </head>
 <body>
 
-  <!-- Nút bật/tắt nhạc YouTube -->
+  <!-- Nút bật/tắt nhạc SoundCloud -->
   <button class="music-btn" id="musicBtn" title="Bật/tắt nhạc">🔇</button>
 
-  <!-- Iframe YouTube nhạc nền ẩn -->
+  <!-- Iframe nhạc SoundCloud ẩn (kích thước 0 để chỉ phát âm thanh) -->
   <iframe
-    id="yt-player"
-    style="display:none;"
-    width="0" height="0"
-    src=""
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
+    id="sc-player"
+    width="0"
+    height="0"
+    scrolling="no"
+    frameborder="no"
+    allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1722850962&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=false&muted=true">
   </iframe>
 
   <h1>🎂 Chúc mừng sinh nhật! 🎉</h1>
@@ -279,24 +279,40 @@
     }
 
     const musicBtn = document.getElementById('musicBtn');
-    const ytPlayer = document.getElementById('yt-player');
+    const scPlayer = document.getElementById('sc-player');
     let isPlaying = false;
 
-    // Ban đầu iframe không load nhạc
-    ytPlayer.src = "";
-
     musicBtn.addEventListener('click', () => {
-      if (!isPlaying) {
-        ytPlayer.src = "https://www.youtube.com/embed/uYVbp55O_2k?start=18&autoplay=1&loop=1&playlist=uYVbp55O_2k&mute=0";
-        ytPlayer.style.display = 'block'; // hoặc 'none' để vẫn ẩn, vẫn phát được
-        musicBtn.textContent = "🔈";
-        isPlaying = true;
-      } else {
-        ytPlayer.src = "";
-        ytPlayer.style.display = 'none';
+      if (isPlaying) {
+        // Tắt nhạc (reload iframe với muted=true)
+        scPlayer.src = scPlayer.src.replace('muted=false', 'muted=true');
         musicBtn.textContent = "🔇";
         isPlaying = false;
+      } else {
+        // Bật nhạc (reload iframe với muted=false)
+        scPlayer.src = scPlayer.src.replace('muted=true', 'muted=false');
+        musicBtn.textContent = "🔈";
+        isPlaying = true;
       }
+    });
+
+    const cake = document.getElementById('cake');
+    const photoUrls = [
+      "https://i.postimg.cc/tRZ04WM9/Thi-t-k-ch-a-c-t-n-1.png",
+      "https://i.postimg.cc/44rD7yDV/Thi-t-k-ch-a-c-t-n-2.png",
+      "https://i.postimg.cc/3JmPg7h6/Thi-t-k-ch-a-c-t-n-3.png",
+      "https://i.postimg.cc/4xGjPMN3/Thi-t-k-ch-a-c-t-n.png",
+      "https://i.postimg.cc/tRZ04WM9/Thi-t-k-ch-a-c-t-n-1.png"
+    ];
+
+    document.getElementById("giftBtn").addEventListener("click", () => {
+      cake.style.top = '50vh';
+      cake.style.opacity = 1;
+      setTimeout(() => {
+        showConfetti();
+        showFirework();
+        spawnHeartPhotosCentered();
+      }, 1500);
     });
 
     function showConfetti() {
@@ -326,25 +342,6 @@
       }
       setTimeout(() => container.style.opacity = 0, 1000);
     }
-
-    const cake = document.getElementById('cake');
-    const photoUrls = [
-      "https://i.postimg.cc/tRZ04WM9/Thi-t-k-ch-a-c-t-n-1.png",
-      "https://i.postimg.cc/44rD7yDV/Thi-t-k-ch-a-c-t-n-2.png",
-      "https://i.postimg.cc/3JmPg7h6/Thi-t-k-ch-a-c-t-n-3.png",
-      "https://i.postimg.cc/4xGjPMN3/Thi-t-k-ch-a-c-t-n.png",
-      "https://i.postimg.cc/tRZ04WM9/Thi-t-k-ch-a-c-t-n-1.png"
-    ];
-
-    document.getElementById("giftBtn").addEventListener("click", () => {
-      cake.style.top = '50vh';
-      cake.style.opacity = 1;
-      setTimeout(() => {
-        showConfetti();
-        showFirework();
-        spawnHeartPhotosCentered();
-      }, 1500);
-    });
 
     function createHeartPhotoCentered(idx, total) {
       const photo = document.createElement('img');
