@@ -4,13 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chúc mừng sinh nhật em🎉🥳</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
 
+  <!-- Nhúng font Bangers từ Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+
+  <!-- Nhúng font Coiny cho nút -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Coiny&display=swap" rel="stylesheet" />
+
+  <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Comic Neue', cursive, sans-serif;
+      font-family: 'Bangers', system-ui;
       background: linear-gradient(270deg, #ffd1dc, #ffb6c1, #ffe0f7, #e0f7ff);
       background-size: 800% 800%;
       animation: gradientShift 15s ease infinite;
@@ -55,6 +64,7 @@
       animation: fadeIn 1s ease forwards;
       animation-delay: 1.5s;
       user-select: none;
+      line-height: 1.6;
     }
 
     @keyframes fadeIn {
@@ -88,15 +98,17 @@
 
     .gift-btn {
       margin-top: 35px;
-      padding: 14px 36px;
-      font-size: 1.3em;
+      padding: 12px 30px;
+      font-size: 1.1em;
+      font-family: 'Coiny', system-ui;
+      font-weight: 400;
       border: none;
       background-color: #ff4c8b;
       color: white;
-      border-radius: 30px;
+      border-radius: 25px;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255, 76, 139, 0.6);
-      transition: transform 0.25s ease;
+      box-shadow: 0 4px 12px rgba(255, 76, 139, 0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       opacity: 0;
       animation: fadeInUp 0.7s ease forwards;
       animation-delay: 2.5s;
@@ -104,7 +116,8 @@
     }
 
     .gift-btn:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(255, 76, 139, 0.6);
     }
 
     @keyframes fadeInUp {
@@ -151,7 +164,7 @@
       transform: translateX(-50%);
       width: 180px;
       height: 180px;
-      background-image: url('https://media.discordapp.net/attachments/1368956522813460522/1378630796029460510/birthday-cake-emoji-clipart-xl.png?ex=683d4d7b&is=683bfbfb&hm=9b6478e6220c9206318e01a799b2772890ba55c9e2f386d1e36233605bc1b305&=&format=webp&quality=lossless&width=833&height=833');
+      background-image: url('https://i.postimg.cc/JnhvDZYR/557birthdaycake1-100853.png');
       background-size: contain;
       background-repeat: no-repeat;
       opacity: 0;
@@ -217,8 +230,8 @@
         max-width: 90%;
       }
       .gift-btn {
-        font-size: 1.1em;
-        padding: 12px 28px;
+        font-size: 1em;
+        padding: 10px 24px;
       }
       .cake {
         width: 120px;
@@ -245,7 +258,7 @@
 
   <h1>🎂 Chúc mừng sinh nhật! 🎉</h1>
   <div class="message" id="typing"></div>
-  <button class="gift-btn" id="giftBtn">🎁 Mở quà bất ngờ</button>
+  <button class="gift-btn" id="giftBtn">🎁 Mở quà bất ngờ 🎁</button>
 
   <div class="cake" id="cake"></div>
   <div class="firework-container" id="fireworkContainer"></div>
@@ -308,11 +321,11 @@
 
     const cake = document.getElementById('cake');
     const photoUrls = [
-      "https://i.postimg.cc/sgVCK4FY/486760555-10227401500485564-4945063886423735925-n.jpg",
-      "https://media.discordapp.net/attachments/1368956522813460522/1378632265587888240/anh-gai-xinh-che-mat-18.jpg?ex=683d4ed9&is=683bfd59&hm=e2cabd90a6d968ae2fec00681cb8c139cb96cd61bcc030d257a90a0c0856b061&=&format=webp&width=526&height=703",
-      "https://media.discordapp.net/attachments/1368956522813460522/1378632266019766353/anh-gai-xinh-che-mat-32.jpg?ex=683d4ed9&is=683bfd59&hm=e8771ef3f6d348637bf325190aeffbaefe261cb9d1c4a590a5de7b9d91ebf123&=&format=webp&width=526&height=703",
-      "https://media.discordapp.net/attachments/1368956522813460522/1378632266351247390/channels4_profile.jpg?ex=683d4eda&is=683bfd5a&hm=b0a31f7ce898141f2340c89938a06de0f6dd98adf2ad079f7bc110f186415755&=&format=webp&width=703&height=703",
-      "https://media.discordapp.net/attachments/1368956522813460522/1378632266976333834/Hinh-gai-xinh-k8-cute.jpg?ex=683d4eda&is=683bfd5a&hm=4114e3180bf8a032193eecabfb3ae151ca6c236ee72a65e6302b685f3171f9c0&=&format=webp&width=703&height=703"
+      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg",
+      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg",
+      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg",
+      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg",
+      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg"
     ];
 
     document.getElementById("giftBtn").addEventListener("click", () => {
@@ -336,7 +349,6 @@
 
       const t = Math.PI * 2 * (idx / total);
 
-      // Tỉ lệ scale trái tim nhỏ lại trên màn hình nhỏ
       let scale = 22;
       if(window.innerWidth <= 480) {
         scale = 14;
