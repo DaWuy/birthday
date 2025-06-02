@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Birthday</title>
 
-  <!-- Nhúng font Bangers từ Google Fonts -->
+  <!-- Fonts Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
-
-  <!-- Nhúng font Coiny cho nút -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Coiny&display=swap" rel="stylesheet" />
 
-  <!-- Favicon bánh sinh nhật -->
-  <link rel="icon" type="image/png" href="favicon.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
     body {
@@ -32,13 +28,11 @@
       position: relative;
       height: 100vh;
     }
-
     @keyframes gradientShift {
       0%{background-position:0% 50%}
       50%{background-position:100% 50%}
       100%{background-position:0% 50%}
     }
-
     h1 {
       font-size: 3.5em;
       margin-top: 80px;
@@ -50,13 +44,11 @@
       text-shadow: 0 0 15px #ff66aa;
       user-select: none;
     }
-
     @keyframes popScale {
       0% { opacity: 0; transform: scale(0.6); }
       50% { opacity: 1; transform: scale(1.1); }
       100% { opacity: 1; transform: scale(1); }
     }
-
     .message {
       font-size: 1.4em;
       max-width: 650px;
@@ -69,11 +61,9 @@
       user-select: none;
       line-height: 1.6;
     }
-
     @keyframes fadeIn {
       to {opacity: 1;}
     }
-
     .balloon {
       position: absolute;
       bottom: -80px;
@@ -84,7 +74,6 @@
       animation: floatUp 10s linear infinite;
       filter: drop-shadow(0 0 2px #ff77aa);
     }
-
     @keyframes floatUp {
       0% {
         transform: translateY(0);
@@ -98,7 +87,6 @@
         opacity: 0;
       }
     }
-
     .gift-btn {
       margin-top: 35px;
       padding: 12px 30px;
@@ -117,17 +105,14 @@
       animation-delay: 2.5s;
       z-index: 10;
     }
-
     .gift-btn:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 18px rgba(255, 76, 139, 0.6);
     }
-
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .confetti {
       position: absolute;
       width: 10px;
@@ -135,7 +120,6 @@
       border-radius: 50%;
       animation: explode 1s ease-out forwards;
     }
-
     @keyframes explode {
       0% {
         transform: translate(0, 0) scale(1);
@@ -146,20 +130,18 @@
         opacity: 0;
       }
     }
-
     .music-btn {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: none;
-      border: none;
       font-size: 1.7em;
       cursor: pointer;
       color: #ff3366;
+      background: none;
+      border: none;
       filter: drop-shadow(0 0 2px #ff77aa);
       z-index: 11;
     }
-
     .cake {
       position: fixed;
       top: 60vh;
@@ -175,7 +157,6 @@
       z-index: 15;
       transition: top 1.5s ease, opacity 0.3s ease;
     }
-
     .firework-container {
       position: fixed;
       top: 50%;
@@ -187,7 +168,6 @@
       transform: translate(-50%, -50%);
       z-index: 20;
     }
-
     .firework {
       position: absolute;
       top: 50%;
@@ -200,12 +180,10 @@
       opacity: 0;
       animation: fireworkExplode 1s ease forwards;
     }
-
     @keyframes fireworkExplode {
       0% { opacity: 1; transform: translateY(0) scaleY(1); }
       100% { opacity: 0; transform: translateY(-100px) scaleY(3); }
     }
-
     .photo {
       position: fixed;
       width: 120px;
@@ -221,8 +199,7 @@
       transition: transform 3s ease, opacity 3s ease;
       transform: translate(-50%, -50%);
     }
-
-    /* Responsive cho điện thoại */
+    /* Responsive */
     @media (max-width: 480px) {
       h1 {
         font-size: 2.2em;
@@ -256,11 +233,20 @@
   </style>
 </head>
 <body>
-  <audio id="music" loop>
-    <source src="https://cdn.anonfiles.com/yccfd2C2w0/fe4e1ab9-8c89-4b96-9955-9a253bf67601.mp3" type="audio/mpeg" />
-    Trình duyệt không hỗ trợ phát audio.
-  </audio>
-  <button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+  <!-- Nút bật/tắt nhạc YouTube -->
+  <button class="music-btn" id="musicBtn" title="Bật/tắt nhạc">🔇</button>
+
+  <!-- Iframe YouTube nhạc nền ẩn -->
+  <iframe
+    id="yt-player"
+    style="display:none;"
+    width="0" height="0"
+    src=""
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
 
   <h1>🎂 Chúc mừng sinh nhật! 🎉</h1>
   <div class="message" id="typing"></div>
@@ -292,10 +278,26 @@
       document.body.appendChild(balloon);
     }
 
-    function toggleMusic() {
-      const music = document.getElementById("music");
-      music.paused ? music.play() : music.pause();
-    }
+    const musicBtn = document.getElementById('musicBtn');
+    const ytPlayer = document.getElementById('yt-player');
+    let isPlaying = false;
+
+    // Ban đầu iframe không load nhạc
+    ytPlayer.src = "";
+
+    musicBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        ytPlayer.src = "https://www.youtube.com/embed/uYVbp55O_2k?start=18&autoplay=1&loop=1&playlist=uYVbp55O_2k&mute=0";
+        ytPlayer.style.display = 'block'; // hoặc 'none' để vẫn ẩn, vẫn phát được
+        musicBtn.textContent = "🔈";
+        isPlaying = true;
+      } else {
+        ytPlayer.src = "";
+        ytPlayer.style.display = 'none';
+        musicBtn.textContent = "🔇";
+        isPlaying = false;
+      }
+    });
 
     function showConfetti() {
       const confettiColors = ['#ff6f91', '#ff9671', '#ffc75f', '#f9f871', '#ff3c78'];
@@ -327,11 +329,11 @@
 
     const cake = document.getElementById('cake');
     const photoUrls = [
-      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg",
-      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg",
-      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg",
-      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg",
-      "https://i.postimg.cc/fL90501N/8a57637a-c9b9-4121-8c82-716fb72682ff.jpg"
+      "https://i.postimg.cc/tRZ04WM9/Thi-t-k-ch-a-c-t-n-1.png",
+      "https://i.postimg.cc/44rD7yDV/Thi-t-k-ch-a-c-t-n-2.png",
+      "https://i.postimg.cc/3JmPg7h6/Thi-t-k-ch-a-c-t-n-3.png",
+      "https://i.postimg.cc/4xGjPMN3/Thi-t-k-ch-a-c-t-n.png",
+      "https://i.postimg.cc/tRZ04WM9/Thi-t-k-ch-a-c-t-n-1.png"
     ];
 
     document.getElementById("giftBtn").addEventListener("click", () => {
