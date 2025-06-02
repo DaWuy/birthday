@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cre: mkoch</title>
   <style>
     body {
@@ -203,7 +203,6 @@
 
   <script>
     const correctPass = "11";
-    const redirectURL = "file:///G:/buff/w1/mkoch/web/mkoch.html"; // Đổi thành link thật của bạn
 
     function appendNum(num) {
       const input = document.getElementById('pass');
@@ -217,16 +216,13 @@
     function submitPass() {
       const pass = document.getElementById('pass').value;
       if (pass === correctPass) {
-        document.body.classList.add('hidden');
-        setTimeout(() => {
-          window.location.href = redirectURL;
-        }, 800);
+        // Chuyển sang file mkoch.html
+        window.location.href = "mkoch.html";
       } else {
         alert('sai rui vk oiiii😊');
       }
     }
 
-    // Hiện hiệu ứng khi trang tải
     window.onload = () => {
       document.body.classList.remove('hidden');
     };
